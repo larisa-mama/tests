@@ -1,0 +1,39 @@
+@startuml tickets
+floating note
+  Схема алгоритма  «Расчет стоимости билетов при покупке на сайте при условии, 
+что на каждый третий купленный билет действует скидка» 
+В схеме ниже скидка считается на оформляемые в данный момент билеты
+end note
+
+start
+repeat :форма ввода данных;
+    :клиент ввел количество билетов (<color:Blue>Number);
+backward :показать текст об ошибке;
+repeat while (валидации данных: есть ошибка в количестве билетов?
+Например, клиент вводит невалидное число билетов, 
+в продаже нет билетов для покупки в нужном количестве? ) is (да) 
+
+:считаем сумму без скидки <color:limegreen>Sum <color:black>= <color:Blue>Number <color:Black> х Price,
+ где Price - цена билета ;
+if(<color:Blue>Number <color:Black>< 3) then (да)
+ :показываем клиенту сумму к оплате <color:limegreen>Sum 
+    с сообщением, что скидка не применилась;
+stop
+else (нет)
+:считаем количество троек билетов как целое от деления на 3
+                                 <color:Red>Integer = <color:Blue>Number <color:black>div 3;
+:считаем размер скидки в рублях <color:Brown>Discount_amount = <color:Black>Discount х <color:Red>Integer <color:Black> х Price,
+    где Discount - скидка в долях единицы, Price - цена билета;
+:считаем сумму для оплаты со скидкой по формуле
+                 Amount = <color:limegreen>Sum<color:Black> - <color:Brown>Discount_amount;   
+:показываем клиенту сумму к оплате Amount
+    с сообщением о применении скидки 
+    на каждый третий билет клиента
+     в размере <color:Brown>Discount_amount;
+stop
+
+floating note
+выполнила Ермакова Лариса
+end note
+
+@enduml
